@@ -19,6 +19,4 @@ const Page = styled.div`
   #wrapper {
     min-height: 100vh;
   }
-
 `;
-
