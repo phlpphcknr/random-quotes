@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components/macro';
 
-const GlobalStyle = createGlobalStyle`
+let GlobalStyle = createGlobalStyle`
 
 * {
   font-size:24px;
@@ -14,6 +14,7 @@ html, body, #root {
    
    --primary-color: #F1D145;
    --secondary-color: #CDCDCD;
+   --tertiary-color: #F1D145;
  }
  
  p {

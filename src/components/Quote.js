@@ -1,10 +1,16 @@
 import styled from "styled-components/macro";
+import {useEffect} from "react";
 
-export default function Quote( {quote, author} ) {
+export default function Quote( {quote, author, color} ) {
+
+    useEffect(() => {
+        document.getElementById("text").style.background = color;
+    },);
+
     return (
             <Sphere>
-                <QuoteText>{quote}</QuoteText>
-                <QuoteAuthor>{author}</QuoteAuthor>
+                <QuoteText id="text">{quote}</QuoteText>
+                <QuoteAuthor id="author">{author}</QuoteAuthor>
             </Sphere>
     )
 }
