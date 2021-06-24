@@ -1,7 +1,8 @@
 import styled from "styled-components/macro";
 import {useEffect} from "react";
+import Sphere from "./Sphere.js"
 
-export default function BaseButton( {content, getNewQuote, color} ) {
+export default function NewQuoteButton({getNewQuote, color}) {
 
     useEffect(() => {
         document.getElementById("new-quote").style.background = color;
@@ -13,27 +14,15 @@ export default function BaseButton( {content, getNewQuote, color} ) {
     };
 
     return (<div>
-            <ButtonSphere>
-            <Button id="new-quote" onClick={getNewQuoteAndColorChange} >{content}</Button>
-            </ButtonSphere>
+            <Sphere>
+            <Button id="new-quote" onClick={getNewQuoteAndColorChange}>Get New Quote</Button>
+            </Sphere>
             </div>
     )
 }
 
-
-const ButtonSphere = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 80px;
-  margin: 10px;
-  background-color: var(--secondary-color);
-  border-radius: 50%;
-`
-
 const Button = styled.button`
   border: 0;
-  outline: none;
   padding: 30px 50px;
   border-radius: 50%;
 `

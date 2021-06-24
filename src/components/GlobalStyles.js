@@ -5,6 +5,7 @@ let GlobalStyle = createGlobalStyle`
 * {
   font-size:24px;
   font-family: "Arial";
+  border: 0;
 }
 
 html, body, #root {

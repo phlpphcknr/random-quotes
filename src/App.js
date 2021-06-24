@@ -1,9 +1,8 @@
-//import GlobalStyle from './components/GlobalStyles';
 import { createGlobalStyle } from 'styled-components/macro';
 import styled from 'styled-components/macro';
 import QuoteBox from './components/QuoteBox'
 import Wrapper from './components/Wrapper';
-import React, {useState} from "react";
+import {useState} from "react";
 
 export default function App() {
 
@@ -27,7 +26,7 @@ export default function App() {
 
     return (
     <Page>
-        <GlobalStyle color={color}/>
+        <GlobalStyle/>
         <Wrapper id="wrapper">
             <QuoteBox color={color} changeColor={changeColor}/>
         </Wrapper>
@@ -42,7 +41,6 @@ const Page = styled.div`
   }
 `;
 
-
 const GlobalStyle = createGlobalStyle`
 
 * {
@@ -53,9 +51,6 @@ const GlobalStyle = createGlobalStyle`
 html, body, #root {
    margin: 0;
    padding: 0;
-   background-color: "black";
-
-   --primary-color: #F1D145;
    --secondary-color: #CDCDCD;
  }
 

@@ -1,14 +1,12 @@
 import Wrapper from './Wrapper';
-import BaseButton from './BaseButton'
-import TwitterButton from './TwitterButton'
+import NewQuoteButton from './NewQuoteButton'
+import ShareLink from './ShareLink'
 import Quote from "./Quote";
 import {useEffect, useState} from "react";
 
 export default function QuoteBox({color, changeColor}) {
 
-    //const ;
-    const [quoteObject, setQuoteObject] = useState(
-        {text: "", author: ""});
+    const [quoteObject, setQuoteObject] = useState({text: "", author: ""});
 
     useEffect(() => {
         getNewQuote()
@@ -16,7 +14,6 @@ export default function QuoteBox({color, changeColor}) {
     }, []);
 
     const getNewQuote = () => {
-
         fetch("https://type.fit/api/quotes")
             .then(function(response) {
                 return response.json();
@@ -26,16 +23,13 @@ export default function QuoteBox({color, changeColor}) {
             })
             .catch((error) => console.error(error));
         changeColor();
-
     };
 
     return (
         <Wrapper id="quote-box" >
-            <BaseButton content={"Get New Quote"} getNewQuote={getNewQuote} color={color}/>
-            <Quote quote={quoteObject.text}
-            author={quoteObject.author}
-            color={color}/>
-            <TwitterButton color={color} quoteObject={quoteObject}/>
+            <NewQuoteButton getNewQuote={getNewQuote} color={color}/>
+            <Quote quoteObject={quoteObject} color={color}/>
+            <ShareLink color={color} quoteObject={quoteObject}/>
         </Wrapper>
     )
 }

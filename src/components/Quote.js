@@ -1,7 +1,8 @@
 import styled from "styled-components/macro";
 import {useEffect} from "react";
+import Sphere from "./Sphere.js"
 
-export default function Quote( {quote, author, color} ) {
+export default function Quote( {quoteObject, color} ) {
 
     useEffect(() => {
         document.getElementById("text").style.background = color;
@@ -9,37 +10,20 @@ export default function Quote( {quote, author, color} ) {
 
     return (
             <Sphere>
-                <QuoteText id="text">{quote}</QuoteText>
-                <QuoteAuthor id="author">{author}</QuoteAuthor>
+                <QuoteText id="text">{quoteObject.text}</QuoteText>
+                <QuoteAuthor id="author">{quoteObject.author}</QuoteAuthor>
             </Sphere>
     )
 }
 
-const Sphere = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 80px;
-  margin: 10px;
-  background-color: var(--secondary-color);
-  border-radius: 50%;
-`
 
 const QuoteText = styled.p`
-  background-color: var(--primary-color);
-  border: 0;
-  outline: none;
   padding: 30px 80px;
   max-width: 450px;
   border-radius: 50%;
 `
-
 const QuoteAuthor = styled.p`
   background-color: transparent;
-  border: 0;
-  outline: none;
   padding: 10px 5px;
   border-radius: 50%;
 `
-
