@@ -7,11 +7,13 @@ import {useEffect, useState} from "react";
 export default function QuoteBox({color, changeColor}) {
 
     //const ;
-    const [quoteObject, setQuoteObject] = useState({text: "", author: ""});
+    const [quoteObject, setQuoteObject] = useState(
+        {text: "", author: ""});
 
     useEffect(() => {
         getNewQuote()
-    },[]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const getNewQuote = () => {
 
