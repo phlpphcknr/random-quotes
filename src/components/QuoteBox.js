@@ -30,7 +30,7 @@ export default function QuoteBox({color, changeColor}) {
     };
 
     return (
-        <Wrapper>
+        <Wrapper id="quote-box" >
             <BaseButton content={"Get New Quote"} getNewQuote={getNewQuote} color={color}/>
             <Quote quote={quoteObject.text}
             author={quoteObject.author}

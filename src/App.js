@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components/macro';
 import styled from 'styled-components/macro';
 import QuoteBox from './components/QuoteBox'
 import Wrapper from './components/Wrapper';
-import {useState} from "react";
+import React, {useState} from "react";
 
 export default function App() {
 
@@ -29,7 +29,7 @@ export default function App() {
     <Page>
         <GlobalStyle color={color}/>
         <Wrapper id="wrapper">
-            <QuoteBox id="quote-box" color={color} changeColor={changeColor}/>
+            <QuoteBox color={color} changeColor={changeColor}/>
         </Wrapper>
     </Page>
   );
