@@ -33,7 +33,7 @@ export default function QuoteBox({color, changeColor}) {
             <Quote quote={quoteObject.text}
             author={quoteObject.author}
             color={color}/>
-            <TwitterButton content={"Twitter"} color={color}/>
+            <TwitterButton color={color} quoteObject={quoteObject}/>
         </Wrapper>
     )
 }

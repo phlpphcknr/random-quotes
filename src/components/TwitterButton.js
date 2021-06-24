@@ -1,22 +1,23 @@
 import styled from "styled-components/macro";
 import {useEffect} from "react";
+import twitterLogo from "../images/Twitter-logo.png"
 
-export default function TwitterButton( {content, color} ) {
+export default function TwitterButton( {color, quoteObject} ) {
 
     useEffect(() => {
         document.getElementById("tweet-quote").style.background = color;
     },);
 
-    //https://twitter.com/intent/tweet?text=%22Whatever%20the%20mind%20of%20man%20can%20conceive%20and%20believe%2C%20it%20can%20achieve.%22%20Napoleon%20Hill
+    const twitterUrl = 'https://twitter.com/intent/tweet?text="' + quoteObject.text + '" by ' + quoteObject.author;
+
 
     return (<div>
             <ButtonSphere>
-            <Link id="tweet-quote" href="http://twitter.com/intent/tweet?text=" target="_blank" >{content}</Link>
+            <Link id="tweet-quote" href={twitterUrl} target="_blank" ><img src={twitterLogo} alt="Twitter Logo"/></Link>
             </ButtonSphere>
             </div>
     )
 }
-
 
 
 const ButtonSphere = styled.div`
@@ -32,6 +33,9 @@ const ButtonSphere = styled.div`
 const Link = styled.a`
   border: 0;
   outline: none;
-  padding: 30px 50px;
+  padding: 15px 50px;
   border-radius: 50%;
+  img {
+    width: 40px;
+    }
 `
