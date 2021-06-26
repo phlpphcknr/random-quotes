@@ -5,6 +5,6 @@ Check: https://www.freecodecamp.org/learn/front-end-libraries/front-end-librarie
 
 It displays random quotes fetched form a public API (https://type.fit/api/quotes). Furthermore, it is possible to share these quotes on twitter.
 
-Enjoy the provided wisdom!
+Enjoy the wisdom!
 
 Cheers, Philipp
