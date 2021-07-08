@@ -3,6 +3,10 @@
 # intellij
 .idea
 
+# terraform
+*key.json
+.terraform
+
 # dependencies
 /node_modules
 /.pnp
