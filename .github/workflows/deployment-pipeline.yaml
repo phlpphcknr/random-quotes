@@ -35,4 +35,4 @@ jobs:
     - name: Publish
       run: make push-docker
     - name: Deploy
-      run: make gh-deploy-docker
+      run: make deploy-docker
