@@ -8,8 +8,7 @@ create-tf-backend-bucket:
 
 SSH_STRING=pt.hackner@randomquotes-app-vm
 
-GITHUB_SHA?=latest
-LOCAL_TAG=randomquotes-app:$(GITHUB_SHA)
+LOCAL_TAG=randomquotes-app:latest
 REMOTE_TAG=gcr.io/$(PROJECT_ID)/$(LOCAL_TAG)
 CONTAINER_NAME=randomquotes-api
 
