@@ -23,12 +23,6 @@ ssh-cmd:
 		--zone=$(ZONE) \
 			--command="$(CMD)"
 
-gh-ssh-cmd:
-	@gcloud compute \
-	--project=$(PROJECT_ID) \
-		--zone=$(ZONE) \
-			--command="$(CMD)"
-
 build-docker:
 	docker build -t $(LOCAL_TAG) .
 
@@ -37,29 +31,18 @@ push-docker:
 	docker push $(REMOTE_TAG)
 
 deploy-docker:
-	$(MAKE) ssh-cmd CMD="docker-credential-gcr configure-docker"
+	$(MAKE) ssh-cmd CMD='docker-credential-gcr configure-docker'
 	@echo "Pulling docker image ..."
-	$(MAKE) ssh-cmd CMD="docker pull $(REMOTE_TAG)"
+	$(MAKE) ssh-cmd CMD='docker pull $(REMOTE_TAG)'
 	@echo "Stop and remove previous docker container ..."
-	-$(MAKE) ssh-cmd CMD="docker container stop $(CONTAINER_NAME)"
-	-$(MAKE) ssh-cmd CMD="docker container rm $(CONTAINER_NAME)"
+	-$(MAKE) ssh-cmd CMD='docker container stop $(CONTAINER_NAME)'
+	-$(MAKE) ssh-cmd CMD='docker container rm $(CONTAINER_NAME)'
 	@echo "Running new docker container ..."
-	$(MAKE) ssh-cmd CMD="docker run -d --name=$(CONTAINER_NAME) \
+	$(MAKE) ssh-cmd CMD='\
+	docker run -d --name=$(CONTAINER_NAME) \
 	--restart=unless-stopped \
 		-p 80:3000 \
 			-e PORT=3000 \
-				$(REMOTE_TAG)"
+				$(REMOTE_TAG) \
+					'
 
-gh-deploy-docker:
-	$(MAKE) gh-ssh-cmd CMD="docker-credential-gcr configure-docker"
-	@echo "Pulling docker image ..."
-	$(MAKE) gh-ssh-cmd CMD="docker pull $(REMOTE_TAG)"
-	@echo "Stop and remove previous docker container ..."
-	-$(MAKE) gh-ssh-cmd CMD="docker container stop $(CONTAINER_NAME)"
-	-$(MAKE) gh-ssh-cmd CMD="docker container rm $(CONTAINER_NAME)"
-	@echo "Running new docker container ..."
-	$(MAKE) gh-ssh-cmd CMD="docker run -d --name=$(CONTAINER_NAME) \
-	--restart=unless-stopped \
-		-p 80:3000 \
-			-e PORT=3000 \
-				$(REMOTE_TAG)"
