@@ -23,6 +23,12 @@ ssh-cmd:
 		--zone=$(ZONE) \
 			--command="$(CMD)"
 
+gh-ssh-cmd:
+	@gcloud compute \
+	--project=$(PROJECT_ID) \
+		--zone=$(ZONE) \
+			--command="$(CMD)"
+
 build-docker:
 	docker build -t $(LOCAL_TAG) .
 
@@ -39,6 +45,27 @@ deploy-docker:
 	-$(MAKE) ssh-cmd CMD="docker container rm $(CONTAINER_NAME)"
 	@echo "Running new docker container ..."
 	$(MAKE) ssh-cmd CMD="docker run -d --name=$(CONTAINER_NAME) \
+	--restart=unless-stopped \
+		-p 80:3000 \
+			-e PORT=3000 \
+				$(REMOTE_TAG)"
+
+gh-build-docker:
+	docker build -t $(LOCAL_TAG) .
+
+gh-push-docker:
+	docker tag $(LOCAL_TAG) $(REMOTE_TAG)
+	docker push $(REMOTE_TAG)
+
+gh-deploy-docker:
+	$(MAKE) gh-ssh-cmd CMD="docker-credential-gcr configure-docker"
+	@echo "Pulling docker image ..."
+	$(MAKE) gh-ssh-cmd CMD="docker pull $(REMOTE_TAG)"
+	@echo "Stop and remove previous docker container ..."
+	-$(MAKE) gh-ssh-cmd CMD="docker container stop $(CONTAINER_NAME)"
+	-$(MAKE) gh-ssh-cmd CMD="docker container rm $(CONTAINER_NAME)"
+	@echo "Running new docker container ..."
+	$(MAKE) gh-ssh-cmd CMD="docker run -d --name=$(CONTAINER_NAME) \
 	--restart=unless-stopped \
 		-p 80:3000 \
 			-e PORT=3000 \
