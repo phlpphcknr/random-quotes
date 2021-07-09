@@ -50,13 +50,6 @@ deploy-docker:
 			-e PORT=3000 \
 				$(REMOTE_TAG)"
 
-gh-build-docker:
-	docker build -t $(LOCAL_TAG) .
-
-gh-push-docker:
-	docker tag $(LOCAL_TAG) $(REMOTE_TAG)
-	docker push $(REMOTE_TAG)
-
 gh-deploy-docker:
 	$(MAKE) gh-ssh-cmd CMD="docker-credential-gcr configure-docker"
 	@echo "Pulling docker image ..."

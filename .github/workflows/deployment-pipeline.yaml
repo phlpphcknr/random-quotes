@@ -30,9 +30,9 @@ jobs:
         gcloud --quiet auth configure-docker
     # Build the Docker image
     - name: Build
-      run: make gh-build-docker
+      run: make build-docker
     # Push the Docker image to Google Container Registry
     - name: Publish
-      run: make gh-push-docker
+      run: make push-docker
     - name: Deploy
       run: make gh-deploy-docker
