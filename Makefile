@@ -32,12 +32,12 @@ push-docker:
 
 deploy-docker:
 	$(MAKE) ssh-cmd CMD="docker-credential-gcr configure-docker"
-	@echo"Pulling docker image ..."
+	@echo "Pulling docker image ..."
 	$(MAKE) ssh-cmd CMD="docker pull $(REMOTE_TAG)"
-	@echo"Stop and remove previous docker container ..."
+	@echo "Stop and remove previous docker container ..."
 	-$(MAKE) ssh-cmd CMD="docker container stop $(CONTAINER_NAME)"
 	-$(MAKE) ssh-cmd CMD="docker container rm $(CONTAINER_NAME)"
-	@echo"Running new docker container ..."
+	@echo "Running new docker container ..."
 	$(MAKE) ssh-cmd CMD="docker run -d --name=$(CONTAINER_NAME) \
 	--restart=unless-stopped \
 		-p 80:3000 \

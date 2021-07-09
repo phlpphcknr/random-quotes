@@ -7,6 +7,8 @@ on:
 
 env:
   PROJECT_ID: randomquotes-app
+  GCE_INSTANCE: randomquotes-app-vm
+  GCE_INSTANCE_ZONE: europe-west1-b
 
 jobs:
   setup-build-publish-deploy:
@@ -18,7 +20,7 @@ jobs:
       uses: actions/checkout@v2
 
     # Setup gcloud CLI
-    - uses: google-github-actions/setup-gcloud@master
+    - uses: google-github-actions/setup-gcloud@main
       with:
         version: '347.0.0'
         service_account_key: ${{ secrets.GCE_SA_KEY }}
@@ -30,9 +32,15 @@ jobs:
         gcloud --quiet auth configure-docker
     # Build the Docker image
     - name: Build
-      run: make build-docker
+      run: |-
+        docker build --tag "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA" .
     # Push the Docker image to Google Container Registry
     - name: Publish
-      run: make push-docker
+      run: |-
+        docker push "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
+
     - name: Deploy
-      run: make deploy-docker
+      run: |-
+        gcloud compute instances update-container "$GCE_INSTANCE" \
+          --zone "$GCE_INSTANCE_ZONE" \
+          --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
